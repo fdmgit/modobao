@@ -44,7 +44,7 @@ fi
 
 apt update
 apt upgrade -y
-apt install git curl python3-virtualenv python3-pip mariadb-server plocate certbot python3-certbot-ngnix -y
+apt install git curl python3-virtualenv python3-pip mariadb-server plocate certbot python3-certbot-nginx -y
 
 ###################################
 #### SSH Hardening
