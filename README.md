@@ -1,2 +1,6 @@
 # modobao
 Mail Server
+
+```
+wget
+```
