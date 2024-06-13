@@ -45,6 +45,7 @@ fi
 apt update
 apt upgrade -y
 apt install git curl python3-virtualenv python3-pip mariadb-server plocate certbot python3-certbot-nginx -y
+apt install amavisd-new spamassassin clamav clamav-daemon unzip bzip2 libnet-ph-perl libnet-snpp-perl libnet-telnet-perl nomarch lzop -y
 
 ###################################
 #### SSH Hardening
