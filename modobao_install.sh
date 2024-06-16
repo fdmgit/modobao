@@ -33,7 +33,7 @@ LCYAN=$(echo -en '\001\033[01;36m\002')
 print_header () {
    clear
    echo ""
-   echo -e "${YELLOW}     Welcome to the Modoboa Mail Server installer!${NC}"
+   echo -e "${YELLOW}     Welcome to the Modobao Mail Server installer!${NC}"
    echo -e "${GREEN}"
    echo "     I need to ask you a few questions before starting the setup."
    echo ""
@@ -42,7 +42,7 @@ print_header () {
 print_conf () {
    clear
    echo ""
-   echo -e "${YELLOW}     Modoboa Mail Server installer${NC}"
+   echo -e "${YELLOW}     Modobao Mail Server installer${NC}"
    echo -e "${GREEN}"
    echo "     Your input is:"
    echo ""
@@ -122,7 +122,7 @@ ssh_hard () {
 	echo -e "# Restrict key exchange, cipher, and MAC algorithms, as per sshaudit.com\n# hardening guide.\n\nKexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,gss-curve25519-sha256-,diffie-hellman-group16-sha512,gss-group16-sha512-,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256\n\nCiphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr\n\nMACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com\n\nHostKeyAlgorithms sk-ssh-ed25519-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,ssh-ed25519,rsa-sha2-512,rsa-sha2-256\n\nRequiredRSASize 3072\n\nCASignatureAlgorithms sk-ssh-ed25519@openssh.com,ssh-ed25519,rsa-sha2-512,rsa-sha2-256\n\nGSSAPIKexAlgorithms gss-curve25519-sha256-,gss-group16-sha512-\n\nHostbasedAcceptedAlgorithms sk-ssh-ed25519-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,ssh-ed25519,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-512,rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-256\n\nPubkeyAcceptedAlgorithms sk-ssh-ed25519-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,ssh-ed25519,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-512,rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-256\n\n" > /etc/ssh/sshd_config.d/ssh-audit_hardening.conf
  
     #### Change SSH port and some config parameters
-	#sed -i "s|\#Port 22|Port 49153|g" /etc/ssh/sshd_config
+	sed -i "s|\#Port 22|Port 49153|g" /etc/ssh/sshd_config
 	sed -i "s|\#MaxAuthTries 6|MaxAuthTries 4|g" /etc/ssh/sshd_config
 	sed -i "s|X11Forwarding yes|X11Forwarding no|g" /etc/ssh/sshd_config
 	sed -i "s|session    required     pam_env.so user_readenv=1 envfile=/etc/default/locale|session    required     pam_env.so envfile=/etc/default/locale|g" /etc/pam.d/sshd
@@ -135,7 +135,7 @@ ssh_hard () {
 server_env () {
 
     cd /root
-    wget https://raw.githubusercontent.com/fdmgit/modoboa/main/bashrc.ini
+    wget https://raw.githubusercontent.com/fdmgit/modobao/main/bashrc.ini
     cp bashrc.ini /root/.bashrc
     cp bashrc.ini /etc/skel/.bashrc
     rm /root/bashrc.ini
@@ -173,6 +173,7 @@ inst_modoboa () {
 	sed -i "s|email = admin@example.com|email = admin@${FQDN}|g" /root/modoboa-installer/installer.cfg
 	sed -i "s|engine = postgres|engine = mysql|g" /root/modoboa-installer/installer.cfg	
 	sed -i "s|timezone = Europe/Paris|timezone = Europe/Zurich|g" /root/modoboa-installer/installer.cfg
+        ./run.py --interactive $FQDN
 }
  
  
