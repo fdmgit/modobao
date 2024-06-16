@@ -66,7 +66,7 @@ get_fqdn_pw () {
     print_header
     echo -e "${GREEN}     Enter new root password [min. length is 12 char]:  ${YELLOW}${rpasswd}"
 
-    until [[ "$FQDN" =~ ^.*\..*\..*$ ]]; do
+    until [[ "$FQDN" =~ ^.*\..*$ ]]; do
     #   print_header
     #   echo -e "${GREEN}     Enter new root password [min. length is 12 char]:  ${YELLOW}${rpasswd}"
         echo -en "${GREEN}     Enter a full qualified domain name:               ${YELLOW} "
