@@ -70,7 +70,7 @@ get_fqdn_pw () {
     #   print_header
     #   echo -e "${GREEN}     Enter new root password [min. length is 12 char]:  ${YELLOW}${rpasswd}"
         echo -en "${GREEN}     Enter a full qualified domain name:               ${YELLOW} "
-        read -e -i "${FQDN}" fqdn
+        read -e -i "${FQDN}" FQDN
         if [[ "$FQDN" =~ ^.*\..*$ ]]; then
             print_conf
             echo -e "${GREEN}     New root password:           ${YELLOW}${rpasswd}"
