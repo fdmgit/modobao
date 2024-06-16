@@ -169,6 +169,10 @@ inst_modoboa () {
 	git clone https://github.com/modoboa/modoboa-installer
 	cd modoboa-installer
 	./run.py --stop-after-configfile-check $FQDN
+	sed -i "s|type = self_signed|type = letsencrypt|g" /root/modoboa-installer/installer.cfg
+	sed -i "s|email = admin@example.com|email = admin@-----|g" /root/modoboa-installer/installer.cfg
+	sed -i "s|engine = postgres|engine = mysql|g" /root/modoboa-installer/installer.cfg	
+	sed -i "s|timezone = Europe/Paris|timezone = Europe/Zurich|g" /root/modoboa-installer/installer.cfg
 }
  
  
