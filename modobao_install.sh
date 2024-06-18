@@ -161,7 +161,7 @@ server_env () {
 
 
 inst_pre_tasks () {
-    apt install git plocate htop -y   
+    apt install git plocate htop rsyslog -y   
 }
 
 inst_modoboa () {
