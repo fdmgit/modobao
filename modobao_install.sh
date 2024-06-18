@@ -176,7 +176,35 @@ inst_modoboa () {
         ./run.py --interactive $FQDN
 }
  
- 
+upd_f2b () {
+      cd /root
+      wget https://github.com/fail2ban/fail2ban/releases/download/1.1.0/fail2ban_1.1.0-1.upstream1_all.deb
+      apt install ./fail2ban_1.1.0-1.upstream1_all.deb -y 
+      rm fail2ban_1.1.0-1.upstream1_all.deb
+      cd /etc/fail2ban/jail.d
+      touch 01-sshd.local
+cat >> /etc/fail2ban/jail.d/01-sshd.local <<'EOF'
+      
+[sshd]
+
+# To use more aggressive sshd modes set filter parameter "mode" in jail.local:
+# normal (default), ddos, extra or aggressive (combines all).
+# See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
+mode     = ddos
+enabled  = true
+port     = ssh, 49153
+#logpath  = %(sshd_log)s
+backend  = %(sshd_backend)s
+filter   = sshd[journalmatch='_COMM=sshd']
+bantime  = 24h
+findtime = 125m
+maxretry = 3
+
+EOF
+      systemctl restart fail2ban
+      sleep 5
+}
+
 
 closing_msg () {
 # Closing message after completion of installation
@@ -203,6 +231,7 @@ ssh_hard
 server_env
 inst_pre_tasks
 inst_modoboa
+upd_f2b
 closing_msg
 
 reboot
